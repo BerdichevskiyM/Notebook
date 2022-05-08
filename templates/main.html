@@ -1,19 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Main page</title>
+    <title>Блокнот</title>
+    <style>
+        .note {
+        width: 200px;
+        background: #f0f0f0;
+        border: 1px solid #333;
+        padding: 10px;
+        font-size: 24px;
+        word-break: break-all;
+    }
+    </style>
 </head>
 <body>
-<h2>Messages</h2>
-<form method="post" action="/add_message">
-    <input type="text" name="text">
-    <input type="text" name="tag">
-    <button type="submit">Add message</button>
+<form method="post" action="/add_note">
+    <h2>Заголовок:</h2>
+    <textarea name="header" class="form-control"></textarea><br>
+    <h2>Заметка:</h2>
+    <textarea name="text" class="form-control"></textarea><br>
+    <button type="submit">Добавить заметку</button>
 </form>
-<h3>Messages list</h3>
-{% for message in messages %}
-<div>{{ message.text }}&nbsp;<b>#{{ message.tag }}</b></div>
-{% endfor %}
+<h1>Заметки</h1>
+<table>
+{% for group in note_groups %}
+<tr>
+    {% for note in group %}
+<td class="note">
+<h3>{{ note.header }}</h3>
+    <p>{{ note.text }}</p>
+    <p>{{ note.date.date() }}</p>
+</td> {% endfor %}
+</tr>{% endfor %}
+</table>
 </body>
 </html>
