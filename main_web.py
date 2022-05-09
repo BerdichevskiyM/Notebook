@@ -26,7 +26,7 @@ class Note(db.Model):
 def main():
     six_note_groups = []
     if os.path.isfile(db_name):
-        six_note_groups = Note.query.order_by(Note.date.desc()).all()
+        six_note_groups = Note.query.order_by(Note.date).all()
         six_l = ceil(len(six_note_groups) / 6)
         six_note_groups = [six_note_groups[i * 6:(i + 1) * 6] for i in range(six_l)]
     return render_template('main.html', note_groups=six_note_groups)
@@ -73,7 +73,7 @@ def find_note():
             founded_notes = Note.query.filter_by(date=date)
         else:
             return render_template('single_main.html', note_groups=founded_notes)
-        founded_notes = founded_notes.order_by(Note.date.desc()).all()
+        founded_notes = founded_notes.order_by(Note.date).all()
         six_l = ceil(len(founded_notes) / 6)
         founded_notes = [founded_notes[i * 6:(i + 1) * 6] for i in range(six_l)]
     return render_template('single_main.html', note_groups=founded_notes)
