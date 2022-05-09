@@ -9,31 +9,45 @@
         background: #f1f0f0;
         border: 2px solid #333;
         padding: 10px;
-        font-size: 24px;
+        font-size: 20px;
         word-break: break-all;
     }
         .note a.text {
+        position: relative; /* Абсолютное позиционирование */
+        left: -5px;
         width: 100px;
         font-size: 30px;
         text-decoration: none;
         color: #804;
     }
+        .note h3 {
+        font-size: 30px;
+        position: relative; /* Абсолютное позиционирование */
+        top: -50px;
+    }
         .note p {
-        font-size: 25px;
+        font-size: 22px;
+        position: relative;
+        top: -50px;
+    }
+        button {
+        width: 150px;
+        font-size: 15px;
+        text-align: left;
     }
     </style>
 </head>
 <body>
 <form method="post" action="/add_note">
-    <h2>Заголовок:</h2>
-    <textarea name="header" class="form-control"></textarea><br>
-    <h2>Заметка:</h2>
-    <textarea name="text" class="form-control"></textarea><br>
+    <h2>Создание:</h2>
+    <textarea name="header" class="form-control" placeholder="Заголовок"></textarea><br>
+    <textarea name="text" class="form-control" placeholder="Заметка"></textarea><br>
     <button type="submit">Добавить заметку</button>
 </form>
 <form method="post" action="/find_note">
     <h2>Поиск:</h2>
     <textarea name="header" class="form-control" placeholder="Заголовок"></textarea><br>
+    <textarea name="date" class="form-control" placeholder="Дата"></textarea><br>
     <button type="submit">Найти заметку</button>
 </form>
 <h1>Заметки</h1>
@@ -41,13 +55,13 @@
 {% for group in note_groups %}
 <tr>
     {% for note in group %}
-<td class="note">
-    <a href="/delete_note/{{ note.id }}" class="text">✖</a>
-    <h3>{{ note.header }}</h3>
-    <p>{{ note.text }}</p>
-    <h5>{{ note.date.date() }}</h5>
-</td> {% endfor %}
-</tr>{% endfor %}
+    <td class="note">
+        <div align="right"><a href="/delete_note/{{ note.id }}" class="text" >✖</a></div>
+        <h3>{{ note.header }}</h3>
+        <p>{{ note.text }}</p>
+        <h5>{{ note.date }}</h5>
+    </td> {% endfor %}
+</tr> {% endfor %}
 </table>
 </body>
 </html>
